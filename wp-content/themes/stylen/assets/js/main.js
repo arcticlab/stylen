@@ -126,23 +126,90 @@
             });
         }
 
-        function select(tile) {
-            tiles.forEach(function (t) { t.classList.remove('is-active'); t.setAttribute('aria-checked', 'false'); });
+        /* Hero slider bits: swapped caption + cross-faded background layers */
+        var hero = document.querySelector('[data-hero-slider]');
+        var heroTitle = document.querySelector('[data-hero="title"]');
+        var heroDesc = document.querySelector('[data-hero="desc"]');
+        var bgLayers = hero ? Array.prototype.slice.call(hero.querySelectorAll('.hero__bg-layer')) : [];
+        var SLIDE_MS = 5000;
+        var timer = null;
+        var index = Math.max(0, tiles.indexOf(chooser.querySelector('.chooser__tile.is-active')));
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function paintSlide(tile, i, animate) {
+            if (heroTitle) { heroTitle.textContent = tile.getAttribute('data-title'); }
+            if (heroDesc) { heroDesc.textContent = tile.getAttribute('data-desc'); }
+            bgLayers.forEach(function (l) {
+                l.classList.toggle('is-active', parseInt(l.getAttribute('data-bg-index'), 10) === i);
+            });
+            if (!animate || !hero) { return; }
+            hero.classList.add('is-swapping');
+            window.setTimeout(function () { hero.classList.remove('is-swapping'); }, 300);
+        }
+
+        function select(tile, opts) {
+            opts = opts || {};
+            var i = tiles.indexOf(tile);
+            if (i < 0) { return; }
+            index = i;
+            tiles.forEach(function (t) {
+                t.classList.remove('is-active', 'is-timing');
+                t.setAttribute('aria-checked', 'false');
+            });
             tile.classList.add('is-active'); tile.setAttribute('aria-checked', 'true');
+
             var cf7 = tile.getAttribute('data-cf7');
             if (estDir) { estDir.textContent = tile.getAttribute('data-title'); }
             if (estTerm) { estTerm.textContent = tile.getAttribute('data-term'); }
             if (estDesc) { estDesc.textContent = tile.getAttribute('data-desc'); }
             if (cta) { cta.setAttribute('data-cf7', cf7); }
             applyToForm(cf7);
+
+            paintSlide(tile, i, opts.animate !== false);
+
+            // restart the progress line on the newly active tile
+            if (timer) {
+                void tile.offsetWidth;
+                tile.classList.add('is-timing');
+            }
         }
 
+        function advance() { select(tiles[(index + 1) % tiles.length]); }
+
+        function play() {
+            if (timer || reduced || tiles.length < 2) { return; }
+            timer = window.setInterval(advance, SLIDE_MS);
+            var active = tiles[index];
+            if (active) { void active.offsetWidth; active.classList.add('is-timing'); }
+        }
+        function pause() {
+            if (!timer) { return; }
+            window.clearInterval(timer);
+            timer = null;
+            tiles.forEach(function (t) { t.classList.remove('is-timing'); });
+        }
+        /* A manual pick ends autoplay for good — respect the user's choice. */
+        function stop() { pause(); reduced = true; }
+
         tiles.forEach(function (tile) {
-            tile.addEventListener('click', function () { select(tile); });
+            tile.addEventListener('click', function () { stop(); select(tile); });
         });
 
         if (cta) {
             cta.addEventListener('click', function () { applyToForm(cta.getAttribute('data-cf7')); });
+        }
+
+        if (hero) {
+            hero.style.setProperty('--slide-ms', SLIDE_MS + 'ms');
+            hero.addEventListener('mouseenter', pause);
+            hero.addEventListener('mouseleave', play);
+            hero.addEventListener('focusin', pause);
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) { pause(); } else { play(); }
+            });
+            // paint the initial slide without the fade, then start
+            if (tiles[index]) { paintSlide(tiles[index], index, false); }
+            play();
         }
     }
 

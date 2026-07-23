@@ -47,6 +47,7 @@ foreach ( $directions as $d ) {
         'desc'  => $meta['desc'],
         'icon'  => $meta['icon'],
         'url'   => get_permalink( $d->ID ),
+        'bg'    => function_exists( 'get_field' ) ? get_field( 'direction_hero_bg', $d->ID ) : 0,
     ];
 }
 $init = $tiles[0] ?? null;
@@ -58,14 +59,30 @@ get_header();
 
 <main id="primary" class="home">
 
-    <!-- ============ HERO — configurator + live estimate ============ -->
-    <section class="hero">
+    <!-- ============ HERO — dark configurator slider + live estimate ============ -->
+    <section class="hero section--dark" data-hero-slider>
+
+        <!-- background layers: one flat colour per direction, cross-faded -->
+        <div class="hero__bg" aria-hidden="true">
+            <?php foreach ( $tiles as $i => $t ) :
+                $bg_url = $t['bg'] ? wp_get_attachment_image_url( $t['bg'], 'full' ) : '';
+                if ( ! $bg_url ) { continue; }
+                ?>
+                <span class="hero__bg-layer<?php echo 0 === $i ? ' is-active' : ''; ?>"
+                      data-bg-index="<?php echo (int) $i; ?>"
+                      style="background-image:url('<?php echo esc_url( $bg_url ); ?>')"></span>
+            <?php endforeach; ?>
+        </div>
+
         <div class="container hero__grid">
 
             <div class="hero__lead">
                 <span class="eyebrow"><?php echo esc_html( $f( 'home_hero_eyebrow' ) ); ?></span>
                 <h1 class="hero__title"><?php echo wp_kses_post( $f( 'home_hero_title' ) ); ?></h1>
-                <p class="hero__text"><?php echo esc_html( $f( 'home_hero_text' ) ); ?></p>
+
+                <!-- swapped by the slider -->
+                <p class="hero__slide-title" data-hero="title"><?php echo esc_html( $init ? $init['title'] : '' ); ?></p>
+                <p class="hero__text" data-hero="desc"><?php echo esc_html( $init ? $init['desc'] : $f( 'home_hero_text' ) ); ?></p>
 
                 <div class="chooser" role="group" aria-label="Что нужно изготовить">
                     <?php foreach ( $tiles as $i => $t ) : ?>
@@ -117,23 +134,6 @@ get_header();
             <?php endif; ?>
 
         </div>
-
-        <?php if ( have_rows( 'home_shots', $pid ) ) : ?>
-            <!-- work showcase — the visual proof under the configurator -->
-            <div class="container">
-                <div class="shots">
-                    <?php $si = 0; while ( have_rows( 'home_shots', $pid ) ) : the_row();
-                        $img = get_sub_field( 's_img' );
-                        if ( ! $img ) { $si++; continue; }
-                        ?>
-                        <figure class="shot" data-reveal style="--d:<?php echo $si * 70; ?>ms">
-                            <?php echo wp_get_attachment_image( $img, 'large', false, [ 'class' => 'shot__img', 'loading' => 'lazy' ] ); ?>
-                            <figcaption class="shot__cap"><?php echo esc_html( get_sub_field( 's_cap' ) ); ?></figcaption>
-                        </figure>
-                    <?php $si++; endwhile; ?>
-                </div>
-            </div>
-        <?php endif; ?>
     </section>
 
     <!-- ============ TRUST STRIP — spec bar ============ -->

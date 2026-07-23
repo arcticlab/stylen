@@ -48,20 +48,51 @@
 /* =========================================================
    HERO — configurator + estimate
    ========================================================= */
-.hero { padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3rem, 6vw, 5rem); background: linear-gradient(180deg, var(--c-surface), var(--c-bg)); border-bottom: 1px solid var(--c-line); }
+/* NB: no `overflow:hidden` here — it would turn .hero into a scroll container
+   and kill the sticky .estimate card. The bg layers are inset:0 so they can't
+   overflow anyway. `isolation` keeps the negative z-index layers contained. */
+.hero.section--dark { position: relative; isolation: isolate; padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3rem, 6vw, 5rem); background: var(--c-purple-900); color: #fff; border-top: 0; border-bottom: 0; }
+
+/* Cross-fading flat-colour background layers (one per direction) */
+.hero__bg { position: absolute; inset: 0; z-index: -2; background: var(--c-purple-900); }
+.hero__bg-layer { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity .7s var(--ease); }
+.hero__bg-layer.is-active { opacity: 1; }
+/* Readability scrim: heavy on the left where the copy sits, light on the right
+   so the slide colour actually reads. */
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(100deg, rgba(14, 0, 34, .88) 0%, rgba(14, 0, 34, .80) 32%, rgba(14, 0, 34, .58) 60%, rgba(14, 0, 34, .26) 100%); }
+
 .hero__grid { display: grid; grid-template-columns: 1.35fr .8fr; gap: clamp(2rem, 4vw, 4rem); align-items: start; }
 .hero__lead { min-width: 0; }
-.hero__title { font-size: clamp(2rem, 4.6vw, 3.35rem); line-height: 1.06; letter-spacing: -.03em; margin: var(--s-5) 0 0; }
-.hero__text { color: var(--c-ink-soft); font-size: clamp(1.02rem, 1.3vw, 1.15rem); line-height: 1.6; margin: var(--s-5) 0 0; max-width: 54ch; }
+.hero .eyebrow { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .22); color: #fff; }
+.hero__title { font-size: clamp(2rem, 4.6vw, 3.35rem); line-height: 1.06; letter-spacing: -.03em; margin: var(--s-5) 0 0; color: #fff; }
+.hero__title .em { color: var(--c-yellow); }
 
-/* Direction chooser */
+/* Slide caption — direction name + description, swapped by the slider */
+.hero__slide-title { display: flex; align-items: center; gap: .6rem; margin: var(--s-6) 0 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.05rem, 1.7vw, 1.3rem); letter-spacing: -.01em; color: var(--c-yellow); }
+.hero__slide-title::before { content: ""; width: 26px; height: 2px; flex-shrink: 0; background: var(--c-yellow); }
+.hero__text { color: rgba(255, 255, 255, .82); font-size: clamp(1.02rem, 1.3vw, 1.15rem); line-height: 1.6; margin: var(--s-3) 0 0; max-width: 54ch; min-height: 3.2em; }
+.hero__slide-title, .hero__text { transition: opacity .3s var(--ease); }
+.hero.is-swapping .hero__slide-title, .hero.is-swapping .hero__text { opacity: 0; }
+
+/* Direction chooser — doubles as the slider's tab strip */
 .chooser { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3); margin-top: var(--s-8); }
-.chooser__tile { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-3); text-align: left; padding: var(--s-4) var(--s-4) var(--s-5); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r); cursor: pointer; transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease), background .2s; font-family: var(--font-text); }
-.chooser__icon { width: 24px; height: 24px; color: var(--c-purple); transition: color .2s; }
-.chooser__label { font-size: .84rem; font-weight: 600; line-height: 1.25; color: var(--c-ink); letter-spacing: -.01em; }
-.chooser__tile:hover { border-color: var(--c-purple-400); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
-.chooser__tile.is-active { border-color: var(--c-purple); background: var(--c-lilac-50); box-shadow: var(--ring); }
-.chooser__tile.is-active .chooser__label { color: var(--c-purple); }
+.chooser__tile { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-3); text-align: left; padding: var(--s-4) var(--s-4) var(--s-5); background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .16); border-radius: var(--r); cursor: pointer; transition: border-color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease); font-family: var(--font-text); }
+.chooser__icon { width: 24px; height: 24px; color: rgba(255, 255, 255, .72); transition: color .2s; }
+.chooser__label { font-size: .84rem; font-weight: 600; line-height: 1.25; color: rgba(255, 255, 255, .88); letter-spacing: -.01em; }
+.chooser__tile:hover { border-color: rgba(255, 255, 255, .42); background: rgba(255, 255, 255, .13); transform: translateY(-2px); }
+.chooser__tile:hover .chooser__icon { color: #fff; }
+.chooser__tile.is-active { border-color: var(--c-yellow); background: rgba(241, 207, 20, .14); }
+.chooser__tile.is-active .chooser__label { color: #fff; }
+.chooser__tile.is-active .chooser__icon { color: var(--c-yellow); }
+/* autoplay progress line on the active tile */
+.chooser__tile::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--c-yellow); transform: scaleX(0); transform-origin: left; }
+.chooser__tile.is-active.is-timing::after { animation: chooserTick var(--slide-ms, 5000ms) linear forwards; }
+@keyframes chooserTick { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) {
+    .chooser__tile.is-active.is-timing::after { animation: none; transform: scaleX(1); }
+    .hero__bg-layer { transition: none; }
+}
 
 /* Estimate card */
 .estimate { position: sticky; top: calc(var(--header-h) + 1rem); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-lg); box-shadow: var(--shadow); overflow: hidden; }
@@ -125,15 +156,6 @@
 .cat__cover { flex-shrink: 0; width: 116px; aspect-ratio: 4 / 3; border-radius: var(--r-sm); overflow: hidden; background: var(--c-lilac-100); position: relative; }
 .cat__cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s var(--ease); }
 .cat__card--photo:hover .cat__cover img { transform: scale(1.06); }
-
-/* =========================================================
-   WORK SHOWCASE — photo strip under the hero configurator
-   ========================================================= */
-.shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); margin-top: clamp(2rem, 4vw, 3.25rem); }
-.shot { position: relative; margin: 0; border-radius: var(--r-lg); overflow: hidden; background: var(--c-lilac-100); box-shadow: var(--shadow); aspect-ratio: 16 / 10; }
-.shot__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s var(--ease); }
-.shot:hover .shot__img { transform: scale(1.05); }
-.shot__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--s-8) var(--s-5) var(--s-4); color: #fff; font-weight: 600; font-size: .95rem; letter-spacing: -.01em; background: linear-gradient(180deg, transparent, rgba(22, 0, 47, .82)); }
 
 /* Production photo in the advantages block */
 .prodshot { margin: 0 0 var(--s-6); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 21 / 8; background: var(--c-lilac-100); position: relative; }
@@ -292,7 +314,6 @@
 @media (max-width: 640px) {
     .chooser { grid-template-columns: repeat(2, 1fr); }
     .cat { grid-template-columns: 1fr; }
-    .shots { grid-template-columns: 1fr; }
     .cat__cover { width: 92px; }
 }
 @media (max-width: 460px) {

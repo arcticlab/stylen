@@ -50,7 +50,7 @@ function stylen_widgets_init() {
 }
 add_action( 'widgets_init', 'stylen_widgets_init' );
 
-define( 'STYLEN_VER', '9.5.0' );
+define( 'STYLEN_VER', '9.6.0' );
 
 function stylen_scripts() {
     $uri = get_template_directory_uri();

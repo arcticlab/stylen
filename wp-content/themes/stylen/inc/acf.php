@@ -96,12 +96,6 @@ add_action( 'acf/init', function () {
 			stylen_acf_text( 'field_home_hero_cta_calc', 'Кнопка «Рассчитать»', 'home_hero_cta_calc' ),
 			stylen_acf_text( 'field_home_hero_cta_services', 'Кнопка «Услуги»', 'home_hero_cta_services' ),
 
-			stylen_acf_tab( 'tab_home_shots', 'Витрина работ (фото под первым экраном)' ),
-			[ 'key' => 'field_home_shots', 'label' => 'Фото работ', 'name' => 'home_shots', 'type' => 'repeater', 'layout' => 'block', 'max' => 4, 'button_label' => 'Добавить фото', 'sub_fields' => [
-				[ 'key' => 'field_home_shot_img', 'label' => 'Фото', 'name' => 's_img', 'type' => 'image', 'return_format' => 'id', 'preview_size' => 'medium' ],
-				stylen_acf_text( 'field_home_shot_cap', 'Подпись', 's_cap' ),
-			] ],
-
 			stylen_acf_tab( 'tab_home_est', 'Карточка-смета' ),
 			stylen_acf_text( 'field_home_est_tag', 'Заголовок карточки', 'home_est_tag' ),
 			stylen_acf_text( 'field_home_est_hint', 'Пометка', 'home_est_hint' ),
@@ -234,6 +228,7 @@ add_action( 'acf/init', function () {
 		'fields'   => [
 			[ 'key' => 'field_direction_desc', 'label' => 'Короткое описание (лид/карточка)', 'name' => 'direction_desc', 'type' => 'textarea', 'rows' => 2, 'new_lines' => '' ],
 			stylen_acf_text( 'field_direction_price', 'Цена «от» (показывается над кнопкой «Рассчитать стоимость»)', 'direction_price', [ 'placeholder' => 'от 450 ₽/м²' ] ),
+			[ 'key' => 'field_direction_hero_bg', 'label' => 'Фон в слайдере на главной', 'name' => 'direction_hero_bg', 'type' => 'image', 'return_format' => 'id', 'preview_size' => 'medium' ],
 			[ 'key' => 'field_direction_body', 'label' => 'Текст «Об услуге»', 'name' => 'direction_body', 'type' => 'wysiwyg', 'tabs' => 'all', 'media_upload' => 0 ],
 		],
 	] );
