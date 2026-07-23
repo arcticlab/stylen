@@ -1,0 +1,62 @@
+{
+    "key": "group_catalog_branch",
+    "title": "Каталог — направление",
+    "fields": [
+        {
+            "key": "field_branch_about_title",
+            "label": "Заголовок блока «Об услуге»",
+            "name": "branch_about_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок секции с описанием направления. Пусто — будет «Подробнее о направлении».",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "50", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Подробнее о направлении",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_branch_products_title",
+            "label": "Заголовок блока «Что входит»",
+            "name": "branch_products_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок секции с карточками видов/услуг. Пусто — будет «Что входит в направление».",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "50", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Что входит в направление",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            },
+            {
+                "param": "page_parent",
+                "operator": "==",
+                "value": "10"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1752000000
+}

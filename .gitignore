@@ -1,0 +1,44 @@
+# =============================================================
+#  stylen.ru — репозиторий кастомной темы «stylen»
+#  Ядро WordPress, сторонние плагины, загрузки и конфиги
+#  НЕ версионируются. Отслеживается только wp-content/themes/stylen.
+# =============================================================
+
+# ── Секреты и окружение (НИКОГДА не коммитить) ───────────────
+wp-config.php
+.htaccess
+.env
+*.pem
+*.key
+
+# ── Ядро WordPress ───────────────────────────────────────────
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/xmlrpc.php
+/license.txt
+/readme.html
+
+# ── wp-content: трекаем только свою тему ─────────────────────
+/wp-content/*
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/stylen/
+
+# ── Локальные артефакты и бэкапы ─────────────────────────────
+*.log
+*.zip
+*.sql
+*.sql.gz
+.osp/
+.vscode/
+--selector
+hero-before.png
+
+# ── Прочее ───────────────────────────────────────────────────
+node_modules/
+.DS_Store
+Thumbs.db
+*.swp
+*~

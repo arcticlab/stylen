@@ -1,0 +1,33 @@
+/*
+Theme Name: Stylen
+Author: Stylen
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.8
+Requires PHP: 8.0
+*/
+
+/* Base reset. All component & layout styling lives in assets/css/main.css + home.css.
+   (Legacy generic header/nav/button rules were removed — they conflicted with the
+   design system and caused the nav + horizontal-scroll bugs.) */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* Interior article typography (single / page / archive) */
+.entry-title { font-family: var(--font-display, system-ui); font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; margin-bottom: .5rem; color: var(--c-ink, #1a1230); }
+.entry-title a { color: inherit; }
+.entry-meta { font-size: .875rem; color: var(--c-muted, #6b6480); margin-bottom: 1.25rem; }
+.entry-content { line-height: 1.8; }
+.entry-content h2, .entry-content h3 { font-family: var(--font-display, system-ui); margin: 1.75rem 0 .75rem; }
+.entry-content p { margin-bottom: 1rem; }
+.entry-content a { color: var(--c-purple, #6b2fd0); text-decoration: underline; text-underline-offset: 2px; }
+.entry-content ul, .entry-content ol { margin: 0 0 1rem 1.25rem; }
+article.post, article.page { margin-bottom: 2.5rem; }
+
+/* Pagination */
+.pagination, .nav-links { display: flex; gap: .5rem; margin: 2.5rem 0; flex-wrap: wrap; }
+.page-numbers { padding: .5rem .95rem; border: 1px solid var(--c-line, #eceaf4); border-radius: 10px; color: var(--c-ink, #1a1230); }
+.page-numbers.current { background: var(--c-purple, #6b2fd0); color: #fff; border-color: transparent; }

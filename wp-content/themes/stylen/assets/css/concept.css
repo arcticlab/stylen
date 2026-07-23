@@ -1,0 +1,182 @@
+/* =========================================================
+   Стиль-Н — v9 «Смета» shared component layer.
+   Loaded after pages.css + catalog.css on interior pages, and
+   also on the front page (home.css still wins there). Carries
+   the engineered-tool language everywhere: Onest UI, cool
+   surfaces, medium radii, soft functional elevation, tag-chip
+   eyebrows, boxed calculator forms. Favicon palette only.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Eyebrows / kickers → soft-lilac tag chip (matches .eyebrow)
+   --------------------------------------------------------- */
+.section__kicker, .page-hero__kicker {
+    font-family: var(--font-text); font-weight: 600; font-size: .7rem;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--c-purple);
+    display: inline-flex; align-items: center; gap: .45rem;
+    background: var(--c-lilac-50); border: 1px solid var(--c-lilac-100);
+    padding: .38rem .7rem; border-radius: var(--r-pill); margin: 0 0 var(--s-4);
+}
+.section__kicker::before, .page-hero__kicker::before { content: none; }
+.section__kicker--light, .page-hero__kicker--light {
+    color: var(--c-yellow); background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .18);
+}
+.section__title, .page-hero__title { font-weight: 700; letter-spacing: -.02em; }
+.section__title--light { color: #fff; }
+.page-hero__title { font-weight: 700; }
+
+/* ---------------------------------------------------------
+   Cards → medium radius, hairline that warms to purple on
+   hover with a soft functional lift (not v8-flat, not v7-heavy)
+   --------------------------------------------------------- */
+.cat-card, .post-card, .contact-card, .value, .pf-item, .quick-link,
+.dept, .blog-featured, .product__aside, .author-box, .post-nav a,
+.requisites, .stat, .order, .card, .cap, .benefit, .member {
+    border: 1px solid var(--c-line); border-radius: var(--r); box-shadow: none;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+}
+.cat-card:hover, .post-card:hover, .contact-card:hover, .value:hover,
+.pf-item:hover, .quick-link:hover, .dept:hover, .benefit:hover,
+.post-nav a:hover, .card:hover, .blog-featured:hover {
+    border-color: var(--c-purple-400); box-shadow: var(--shadow); transform: translateY(-2px);
+}
+.product__aside, .product__media { box-shadow: none; border-radius: var(--r-lg); }
+
+/* Icon chips → soft lilac square, purple fill on hover */
+.card__icon, .contact-card__icon, .value__icon, .quick-link__icon, .cap__icon,
+.dept__icon, .benefit__num {
+    background: var(--c-lilac-50); color: var(--c-purple); border: 0; border-radius: var(--r-sm);
+}
+.contact-card:hover .contact-card__icon,
+.value:hover .value__icon,
+.quick-link:hover .quick-link__icon,
+.card:hover .card__icon { background: var(--c-purple); color: #fff; }
+
+/* Card / product titles → Onest, tight */
+.cat-card__title, .post-card__title, .pf-item__title, .contact-card__value,
+.value__title, .quick-link__title, .dept__name, .blog-featured__title,
+.member__name, .product__price-value, .author-box__name {
+    font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em;
+}
+
+/* ---------------------------------------------------------
+   Placeholder covers → cool brand tints with a purple mark
+   --------------------------------------------------------- */
+.pf-cover--a { background: #efe9fb; }
+.pf-cover--b { background: #eef1f7; }
+.pf-cover--c { background: #f3effb; }
+.pf-cover--d { background: #eae4f7; }
+.pf-cover--e { background: #f3f0fb; color: var(--c-purple); }
+.cat-card__cover .icon, .post-card__cover .icon, .pf-item__cover .icon,
+.blog-featured__cover .icon, .product__media .icon, .pf-cover--e .icon {
+    color: var(--c-purple); opacity: .55;
+}
+.cat-card__cover::after, .post-card__cover::after, .pf-item__cover::after {
+    background: linear-gradient(180deg, transparent 60%, rgba(20, 18, 28, .22)) !important;
+}
+
+/* ---------------------------------------------------------
+   Chips / filters / pagination / nav → rounded rectangles
+   --------------------------------------------------------- */
+.cat-nav a, .pf-chip, .blog-cats a, .cat-pill, .tags-links a, .page-numbers {
+    border: 1px solid var(--c-rule); border-radius: var(--r-sm);
+    text-transform: none; letter-spacing: 0; font-weight: 500;
+}
+.cat-nav a:hover, .pf-chip:hover, .blog-cats a:hover, .page-numbers:hover {
+    border-color: var(--c-purple); color: var(--c-purple); transform: none;
+}
+.cat-nav a.is-active, .pf-chip.is-active, .blog-cats a.is-active, .page-numbers.current {
+    background: var(--c-purple); color: #fff; border-color: var(--c-purple); box-shadow: none;
+}
+.cat-pill { text-transform: uppercase; letter-spacing: .1em; font-size: .68rem; font-weight: 600; background: none; color: var(--c-purple); padding-inline: 0; border: 0; }
+.cat-pill:hover { background: none; color: var(--c-purple-700); }
+
+/* Spec list on product pages */
+.spec-list { border-top: 1px solid var(--c-line); }
+.spec-list li { border-bottom: 1px solid var(--c-line); }
+
+/* ---------------------------------------------------------
+   Forms → boxed, calculator-grade (site-wide, incl. front page)
+   --------------------------------------------------------- */
+.wpcf7-form p { margin: 0 0 var(--s-4); }
+.cf7-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+.wpcf7-form input[type="text"], .wpcf7-form input[type="tel"],
+.wpcf7-form input[type="email"], .wpcf7-form select, .wpcf7-form textarea {
+    width: 100%; padding: .85rem 1rem; border: 1px solid var(--c-rule);
+    border-radius: var(--r-sm); background: var(--c-panel); font-family: inherit;
+    font-size: .96rem; color: var(--c-ink);
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), background .2s;
+}
+.wpcf7-form textarea { min-height: 120px; resize: vertical; }
+.wpcf7-form input:focus, .wpcf7-form select:focus, .wpcf7-form textarea:focus {
+    outline: none; border-color: var(--c-purple); box-shadow: var(--ring); background: var(--c-surface);
+}
+.cf7-consent { display: flex; align-items: flex-start; gap: var(--s-2); font-size: .82rem; color: var(--c-muted); line-height: 1.45; }
+.cf7-consent .wpcf7-list-item { margin: 0; }
+.cf7-consent input { width: auto; margin-top: 3px; }
+.cf7-submit { margin-bottom: 0 !important; }
+.wpcf7-form .wpcf7-submit {
+    width: 100%; padding: 1.02rem; border: 0; border-radius: var(--r); cursor: pointer;
+    background: var(--c-purple); color: #fff; font-family: var(--font-text); font-weight: 700;
+    font-size: 1rem; box-shadow: 0 10px 24px -10px rgba(60, 0, 117, .5);
+    transition: transform .2s var(--ease), box-shadow .2s, background .2s;
+}
+.wpcf7-form .wpcf7-submit:hover { transform: translateY(-2px); background: var(--c-purple-700); box-shadow: 0 16px 30px -10px rgba(60, 0, 117, .5); }
+@media (max-width: 560px) { .cf7-grid { grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------
+   CTA band → purple, medium radius, gold top rule signature
+   --------------------------------------------------------- */
+.cta-band { border-radius: var(--r-xl); box-shadow: var(--shadow); border-top: 3px solid var(--c-yellow); }
+.cta-band__title { font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; }
+
+/* Hero long-word guard */
+.hero__title, .page-hero__title { overflow-wrap: break-word; }
+
+/* =========================================================
+   Forms — quiet validation, progress bar, success swap
+   ========================================================= */
+/* No text notices — invalid fields are shown by colour only. */
+.wpcf7 .wpcf7-not-valid-tip { display: none !important; }
+.wpcf7 form .wpcf7-response-output { display: none !important; }
+.wpcf7-form input.wpcf7-not-valid,
+.wpcf7-form select.wpcf7-not-valid,
+.wpcf7-form textarea.wpcf7-not-valid {
+    border-color: var(--c-error) !important;
+    box-shadow: 0 0 0 3px rgba(214, 69, 69, .14) !important;
+    background: rgba(214, 69, 69, .035);
+}
+.cf7-consent:has(input.wpcf7-not-valid) { color: var(--c-error); }
+
+/* Spinner removed → indeterminate progress bar (shown while submitting). */
+.wpcf7-spinner { display: none !important; }
+.form-progress { position: relative; height: 4px; margin-top: var(--s-4); background: var(--c-line); border-radius: 3px; overflow: hidden; opacity: 0; transition: opacity .2s var(--ease); }
+.wpcf7-form.submitting .form-progress { opacity: 1; }
+.form-progress::before { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 40%; background: var(--c-purple); border-radius: 3px; animation: cf7progress 1.1s var(--ease) infinite; }
+@keyframes cf7progress { 0% { left: -40%; } 100% { left: 100%; } }
+
+/* Success state — replaces the form in place, keeping the block size. */
+.wpcf7 { position: relative; }
+.wpcf7.is-sent { display: flex; align-items: center; justify-content: center; }
+.form-success { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--s-4); padding: var(--s-8) var(--s-4); animation: cf7ok .4s var(--ease); }
+.form-success__icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--c-lilac-100); color: var(--c-purple); }
+.form-success__icon svg { width: 32px; height: 32px; }
+.form-success__title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; letter-spacing: -.01em; margin: 0; }
+.form-success__text { color: var(--c-ink-soft); margin: 0; max-width: 40ch; line-height: 1.55; }
+@keyframes cf7ok { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* =========================================================
+   Order modal
+   ========================================================= */
+.modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: var(--s-4); opacity: 0; visibility: hidden; transition: opacity .25s var(--ease), visibility .25s var(--ease); }
+.modal[aria-hidden="false"] { opacity: 1; visibility: visible; }
+.modal__overlay { position: absolute; inset: 0; background: rgba(20, 12, 44, .55); }
+.modal__dialog { position: relative; z-index: 1; width: min(560px, 100%); max-height: 92vh; overflow-y: auto; background: var(--c-surface); border-radius: var(--r-xl); box-shadow: var(--shadow-lg); padding: clamp(1.5rem, 4vw, 2.5rem); transform: translateY(14px) scale(.98); transition: transform .28s var(--ease); }
+.modal[aria-hidden="false"] .modal__dialog { transform: none; }
+.modal__close { position: absolute; top: var(--s-4); right: var(--s-4); width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--c-line); background: var(--c-surface); border-radius: var(--r-sm); color: var(--c-ink-soft); cursor: pointer; transition: border-color .2s var(--ease), color .2s var(--ease); }
+.modal__close:hover { border-color: var(--c-purple); color: var(--c-purple); }
+.modal__intro { margin-bottom: var(--s-6); padding-right: 2.5rem; }
+.modal__title { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; letter-spacing: -.02em; margin: var(--s-3) 0 0; }
+.modal__text { color: var(--c-ink-soft); margin: var(--s-3) 0 0; font-size: .96rem; line-height: 1.55; }
+.modal__form .wpcf7.is-sent { min-height: 260px; }
+body.modal-open { overflow: hidden; }

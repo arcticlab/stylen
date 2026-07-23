@@ -1,0 +1,101 @@
+/* =========================================================
+   Стиль-Н — catalog (home / direction / product).
+   Loads on top of pages.css (which provides .section*,
+   .page-hero, .breadcrumbs, .cta-band, tokens).
+   ========================================================= */
+
+/* ---- Catalog card grid (directions + products) ---- */
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-6); }
+.cat-grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+.cat-card { display: flex; flex-direction: column; background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-lg); overflow: hidden; text-decoration: none; color: var(--c-ink); position: relative; transition: transform .28s var(--ease), box-shadow .3s var(--ease), border-color .25s; }
+.cat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.cat-card__cover { position: relative; aspect-ratio: 16 / 10; display: grid; place-items: center; color: rgba(255, 255, 255, .92); overflow: hidden; }
+.cat-card__cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cat-card__cover .icon { width: 46px; height: 46px; opacity: .92; }
+.cat-card__cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(20, 8, 54, .45)); opacity: 0; transition: opacity .3s; }
+.cat-card:hover .cat-card__cover::after { opacity: 1; }
+.cat-card__badge { position: absolute; top: var(--s-3); left: var(--s-3); z-index: 2; background: rgba(255, 255, 255, .92); color: var(--c-purple-800); font-size: .72rem; font-weight: 700; padding: .28rem .65rem; border-radius: var(--r-pill); }
+.cat-card__price { position: absolute; top: var(--s-3); right: var(--s-3); z-index: 2; background: var(--c-yellow); color: var(--c-purple-800); font-size: .74rem; font-weight: 800; padding: .28rem .65rem; border-radius: var(--r-pill); }
+.cat-card__body { padding: var(--s-6); display: flex; flex-direction: column; gap: var(--s-2); flex: 1; }
+.cat-card__title { font-family: var(--font-display); font-weight: 700; font-size: 1.14rem; line-height: 1.25; margin: 0; }
+.cat-card__desc { font-size: .92rem; color: var(--c-muted); line-height: 1.55; margin: 0; flex: 1; }
+.cat-card__link { display: inline-flex; align-items: center; gap: .35rem; color: var(--c-purple); font-weight: 600; font-size: .9rem; margin-top: var(--s-2); }
+.cat-card__link .icon { transition: transform .2s var(--ease); }
+.cat-card:hover .cat-card__link .icon { transform: translateX(4px); }
+
+/* ---- Direction chips row (sibling navigation) ---- */
+.cat-nav { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-10); justify-content: flex-start; }
+.cat-nav a { display: inline-flex; align-items: center; gap: .4rem; padding: .5rem 1rem; border-radius: var(--r-pill); border: 1.5px solid var(--c-line); background: var(--c-surface); color: var(--c-ink-soft); font-family: var(--font-display); font-weight: 600; font-size: .88rem; text-decoration: none; transition: background .2s, color .2s, border-color .2s; }
+.cat-nav a .icon { width: 16px; height: 16px; color: var(--c-purple); }
+.cat-nav a:hover { border-color: var(--c-purple-400); color: var(--c-purple); }
+.cat-nav a.is-active { background: var(--c-purple); border-color: var(--c-purple); color: #fff; }
+.cat-nav a.is-active .icon { color: #fff; }
+
+/* ---- Intro / SEO prose (rendered the_content when present) ---- */
+.cat-prose { max-width: 860px; margin: 0; }
+.cat-prose p { color: var(--c-ink-soft); line-height: 1.8; margin: 0 0 var(--s-4); }
+.cat-prose h2 { font-family: var(--font-display); font-size: clamp(1.3rem, 2.4vw, 1.6rem); margin: var(--s-8) 0 var(--s-3); color: var(--c-ink); }
+.cat-prose ul, .cat-prose ol { margin: 0 0 var(--s-4) 1.35rem; display: grid; gap: var(--s-2); color: var(--c-ink-soft); }
+
+/* =========================================================
+   PRODUCT (terminal page)
+   ========================================================= */
+.product { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+.product__media { position: relative; overflow: hidden; border-radius: var(--r-xl); aspect-ratio: 4 / 3; display: grid; place-items: center; color: var(--c-purple); border: 1px solid var(--c-line); box-shadow: var(--shadow-sm); }
+.product__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.product__media .icon { width: 88px; height: 88px; opacity: .9; }
+.product__media-note { position: absolute; left: var(--s-4); bottom: var(--s-4); z-index: 2; background: rgba(20, 8, 54, .55); color: #fff; font-size: .78rem; padding: .4rem .8rem; border-radius: var(--r-pill); backdrop-filter: blur(4px); }
+.is-firefox .product__media-note { backdrop-filter: none; background: rgba(20, 8, 54, .78); }
+
+.product__aside { position: sticky; top: calc(var(--header-h) + 16px); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-lg); padding: clamp(1.4rem, 3vw, 2rem); box-shadow: var(--shadow); }
+.product__price { display: flex; align-items: baseline; gap: var(--s-2); margin-bottom: var(--s-5); }
+.product__price-label { font-size: .82rem; color: var(--c-muted); }
+.product__price-value { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--c-purple); letter-spacing: -.02em; }
+.product__desc { color: var(--c-ink-soft); line-height: 1.7; margin: 0 0 var(--s-5); }
+
+.spec-list { list-style: none; margin: 0 0 var(--s-6); padding: 0; display: grid; gap: 0; border-top: 1px solid var(--c-line); }
+.spec-list li { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--c-line); font-size: .92rem; }
+.spec-list dt, .spec-list .spec__k { color: var(--c-muted); }
+.spec-list .spec__v { color: var(--c-ink); font-weight: 600; text-align: right; }
+
+.product__actions { display: grid; gap: var(--s-3); }
+.product__actions .btn { width: 100%; }
+.product__note { display: flex; align-items: center; gap: var(--s-2); margin: var(--s-4) 0 0; font-size: .82rem; color: var(--c-muted); }
+.product__note .icon { color: var(--c-yellow-600); flex-shrink: 0; }
+
+/* Trust block under the product media — compact cards */
+.product__trust { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.ptrust { display: flex; align-items: flex-start; gap: var(--s-3); padding: var(--s-4); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r); transition: border-color .2s var(--ease), box-shadow .2s var(--ease); }
+.ptrust:hover { border-color: var(--c-purple-400); box-shadow: var(--shadow-sm); }
+.ptrust__icon { flex-shrink: 0; width: 40px; height: 40px; display: inline-grid; place-items: center; background: var(--c-lilac-50); border-radius: var(--r-sm); color: var(--c-purple); }
+.ptrust__icon .icon { width: 21px; height: 21px; }
+.ptrust__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ptrust__title { font-family: var(--font-display); font-weight: 700; font-size: .92rem; color: var(--c-ink); line-height: 1.25; letter-spacing: -.01em; }
+.ptrust__text { font-size: .8rem; line-height: 1.35; color: var(--c-muted); }
+
+/* Product long-form content */
+.product-body { max-width: 760px; }
+.product-body h2 { font-family: var(--font-display); font-size: clamp(1.3rem, 2.4vw, 1.65rem); margin: var(--s-8) 0 var(--s-3); color: var(--c-ink); }
+.product-body h2:first-child { margin-top: 0; }
+.product-body p { color: var(--c-ink-soft); line-height: 1.8; margin: 0 0 var(--s-4); }
+.product-body ul, .product-body ol { margin: 0 0 var(--s-4) 1.35rem; display: grid; gap: var(--s-2); color: var(--c-ink-soft); }
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 1080px) {
+    .cat-grid, .cat-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .product__trust { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+    .product { grid-template-columns: 1fr; }
+    .product__aside { position: static; }
+}
+@media (max-width: 760px) {
+    .cat-grid, .cat-grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+    .cat-grid, .cat-grid--3 { grid-template-columns: 1fr; }
+    .product__trust { grid-template-columns: 1fr; }
+}

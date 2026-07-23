@@ -1,0 +1,84 @@
+{
+    "key": "group_pf_gallery",
+    "title": "Портфолио — галерея",
+    "fields": [
+        {
+            "key": "field_pf_gallery",
+            "label": "Галерея фотографий",
+            "name": "pf_gallery",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Дополнительные фотографии работы. Открываются в модальном окне единой группой.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_pf_caption",
+            "button_label": "Добавить фото",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_pf_image",
+                    "label": "Изображение",
+                    "name": "pf_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "50", "class": "", "id": "" },
+                    "return_format": "id",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_pf_gallery"
+                },
+                {
+                    "key": "field_pf_caption",
+                    "label": "Подпись",
+                    "name": "pf_caption",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Необязательно.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": { "width": "50", "class": "", "id": "" },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_pf_gallery"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "portfolio"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1752000000
+}
