@@ -27,7 +27,9 @@ while ( have_posts() ) : the_post();
     <main id="primary">
 
         <!-- ============ HERO ============ -->
-        <section class="page-hero">
+        <?php $has_bg = (bool) stylen_catalog_hero_bg( $post_obj ); ?>
+        <section class="page-hero<?php echo $has_bg ? ' page-hero--media' : ''; ?>">
+            <?php stylen_catalog_hero_backdrop( $post_obj ); ?>
             <div class="container">
                 <div class="page-hero__inner page-hero__inner--wide">
                     <?php stylen_breadcrumbs(); ?>

@@ -328,6 +328,58 @@ function stylen_catalog_icon( $post = null ) {
 }
 
 /**
+ * Resolve the page-hero background image (attachment ID) for a catalog page.
+ * Products may set their own `product_hero_bg`; when empty they inherit the
+ * parent direction's `direction_hero_bg`. Directions use their own field.
+ * Returns an attachment ID or 0.
+ */
+function stylen_catalog_hero_bg( $post = null ) {
+    if ( ! function_exists( 'get_field' ) ) {
+        return 0;
+    }
+    $post  = get_post( $post );
+    if ( ! $post ) {
+        return 0;
+    }
+    $level = stylen_catalog_page_level( $post );
+
+    if ( 'leaf' === $level ) {
+        $own = (int) get_field( 'product_hero_bg', $post->ID );
+        if ( $own ) {
+            return $own;
+        }
+        $dir = stylen_direction_of( $post );
+        return $dir ? (int) get_field( 'direction_hero_bg', $dir->ID ) : 0;
+    }
+
+    if ( 'branch' === $level ) {
+        return (int) get_field( 'direction_hero_bg', $post->ID );
+    }
+
+    return 0;
+}
+
+/**
+ * Render the media backdrop (image + readability scrim) for a catalog page-hero.
+ * Echoes nothing when the page has no background, so the hero falls back to the
+ * default light treatment. Call INSIDE <section class="page-hero …"> before the
+ * .container. Returns true when a backdrop was printed (so the caller can add
+ * the `page-hero--media` modifier + light-on-dark markup).
+ */
+function stylen_catalog_hero_backdrop( $post = null ) {
+    $bg = stylen_catalog_hero_bg( $post );
+    if ( ! $bg ) {
+        return false;
+    }
+    $url = wp_get_attachment_image_url( $bg, 'full' );
+    if ( ! $url ) {
+        return false;
+    }
+    echo '<span class="page-hero__bg" aria-hidden="true" style="background-image:url(\'' . esc_url( $url ) . '\')"></span>';
+    return true;
+}
+
+/**
  * Gradient placeholder cover class (a–e), stable per page id.
  */
 function stylen_catalog_cover_class( $post_id ) {

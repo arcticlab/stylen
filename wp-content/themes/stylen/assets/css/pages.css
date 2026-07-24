@@ -35,6 +35,34 @@
 .page-hero__lead { color: var(--c-ink-soft); font-size: clamp(1.02rem, 1.2vw, 1.16rem); line-height: 1.6; max-width: 60ch; margin: var(--s-5) 0 0; }
 .page-hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-8); }
 
+/* ---- Media variant: the direction's colour carries onto the page-hero.
+   Same dark treatment as the homepage hero slider, so catalog reads as one
+   system. Applied only when a background image is resolved (branch: its own,
+   product: own or inherited from the parent direction). ---- */
+.page-hero--media { isolation: isolate; color: #fff; background: var(--c-purple-900); border-bottom: 0; }
+.page-hero__bg { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; }
+.page-hero--media::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(100deg, rgba(14, 0, 34, .90) 0%, rgba(14, 0, 34, .78) 34%, rgba(14, 0, 34, .50) 60%, rgba(14, 0, 34, .16) 100%); }
+.page-hero--media .page-hero__title { color: #fff; }
+/* kicker chip on dark — matches the established --light recipe (concept.css) */
+.page-hero--media .page-hero__kicker { color: var(--c-yellow); background: rgba(255, 255, 255, .10); border-color: rgba(255, 255, 255, .20); }
+.page-hero--media .page-hero__lead { color: rgba(255, 255, 255, .82); }
+.page-hero--media .breadcrumbs,
+.page-hero--media .breadcrumbs a { color: rgba(255, 255, 255, .72); }
+.page-hero--media .breadcrumbs a:hover { color: #fff; }
+.page-hero--media .breadcrumbs .breadcrumb_last,
+.page-hero--media .breadcrumbs [aria-current] { color: #fff; }
+/* price chip on dark */
+.page-hero--media .price-from { background: rgba(255, 255, 255, .10); border-color: rgba(255, 255, 255, .24); }
+.page-hero--media .price-from__label { color: rgba(255, 255, 255, .72); }
+.page-hero--media .price-from__value { color: var(--c-yellow); }
+/* buttons mirror the dark hero: gold primary + light ghost secondary */
+.page-hero--media .btn--primary { background: var(--c-yellow); color: var(--c-purple-900); border-color: var(--c-yellow); box-shadow: 0 8px 20px -10px rgba(241, 207, 20, .8); }
+.page-hero--media .btn--primary:hover { background: #ffd82e; color: var(--c-purple-900); border-color: #ffd82e; }
+.page-hero--media .btn--outline { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .34); color: #fff; }
+.page-hero--media .btn--outline:hover { background: #fff; border-color: #fff; color: var(--c-purple); }
+.page-hero--media .btn--outline .icon { color: currentColor; }
+
 /* «Стоимость от …» above the direction CTA */
 /* Price chip + CTA read as one action cluster: a clear step down from the lead
    above (--s-6), then tight to the buttons below (--s-4). NB: --s-7 does NOT

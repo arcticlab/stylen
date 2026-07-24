@@ -228,7 +228,7 @@ add_action( 'acf/init', function () {
 		'fields'   => [
 			[ 'key' => 'field_direction_desc', 'label' => 'Короткое описание (лид/карточка)', 'name' => 'direction_desc', 'type' => 'textarea', 'rows' => 2, 'new_lines' => '' ],
 			stylen_acf_text( 'field_direction_price', 'Цена «от» (показывается над кнопкой «Рассчитать стоимость»)', 'direction_price', [ 'placeholder' => 'от 450 ₽/м²' ] ),
-			[ 'key' => 'field_direction_hero_bg', 'label' => 'Фон в слайдере на главной', 'name' => 'direction_hero_bg', 'type' => 'image', 'return_format' => 'id', 'preview_size' => 'medium' ],
+			[ 'key' => 'field_direction_hero_bg', 'label' => 'Фон (слайдер на главной + шапка направления и товаров)', 'name' => 'direction_hero_bg', 'type' => 'image', 'return_format' => 'id', 'preview_size' => 'medium' ],
 			[ 'key' => 'field_direction_body', 'label' => 'Текст «Об услуге»', 'name' => 'direction_body', 'type' => 'wysiwyg', 'tabs' => 'all', 'media_upload' => 0 ],
 		],
 	] );
@@ -240,6 +240,7 @@ add_action( 'acf/init', function () {
 		'location' => [ [ [ 'param' => 'stylen_catalog_level', 'operator' => '==', 'value' => 'leaf' ] ] ],
 		'fields'   => [
 			[ 'key' => 'field_product_desc', 'label' => 'Короткое описание', 'name' => 'product_desc', 'type' => 'textarea', 'rows' => 3, 'new_lines' => '' ],
+			[ 'key' => 'field_product_hero_bg', 'label' => 'Фон шапки страницы', 'name' => 'product_hero_bg', 'type' => 'image', 'return_format' => 'id', 'preview_size' => 'medium', 'instructions' => 'Если не задан — берётся фон родительского направления.' ],
 			stylen_acf_text( 'field_product_price', 'Цена', 'product_price' ),
 			[ 'key' => 'field_product_specs', 'label' => 'Характеристики', 'name' => 'product_specs', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Добавить строку', 'sub_fields' => [
 				stylen_acf_text( 'field_product_spec_label', 'Параметр', 'label' ),
