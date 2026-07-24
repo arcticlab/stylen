@@ -36,10 +36,14 @@
 .page-hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-8); }
 
 /* «Стоимость от …» above the direction CTA */
-.price-from { display: inline-flex; align-items: baseline; gap: .5rem; margin: var(--s-7) 0 0; padding: .5rem .9rem .55rem; background: var(--c-lilac-50); border: 1px solid var(--c-lilac-200); border-radius: var(--r); }
+/* Price chip + CTA read as one action cluster: a clear step down from the lead
+   above (--s-6), then tight to the buttons below (--s-4). NB: --s-7 does NOT
+   exist in the token scale (it jumps s-6 → s-8) — using it here silently
+   resolved to 0 and glued the chip to the description. */
+.price-from { display: inline-flex; align-items: baseline; gap: .5rem; margin: var(--s-6) 0 0; padding: .5rem .9rem .55rem; background: var(--c-lilac-50); border: 1px solid var(--c-lilac-200); border-radius: var(--r); }
 .price-from__label { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: var(--c-muted); font-weight: 600; }
 .price-from__value { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.15rem, 1.8vw, 1.45rem); color: var(--c-purple); letter-spacing: -.01em; }
-.price-from + .page-hero__actions { margin-top: var(--s-5); }
+.price-from + .page-hero__actions { margin-top: var(--s-4); }
 
 /* ---- Breadcrumbs (Yoast SEO markup: <span><a>..</a></span> / <span class="breadcrumb_last">) ---- */
 .breadcrumbs { font-size: .84rem; color: var(--c-muted); margin-bottom: var(--s-5); line-height: 1.6; }
